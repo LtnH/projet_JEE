@@ -1,7 +1,45 @@
 package fr.esgi.plage.controller;
 
-import org.springframework.web.bind.annotation.RestController;
+import fr.esgi.plage.business.Client;
+import fr.esgi.plage.dao.ClientDao;
+import fr.esgi.plage.dto.ClientDto;
+import fr.esgi.plage.service.ClientService;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@RequestMapping("api/")
 @RestController
+@AllArgsConstructor
 public class ClientRestController {
+
+    private final ClientService clientService;
+
+    @GetMapping("clients")
+    public List<Client> getClients() {
+        return clientService.getAllClients();
+    }
+
+    @GetMapping("clients/{id}")
+    public Client getClient(Long id) {
+        return clientService.getClient(id);
+    }
+
+    @PostMapping("client")
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public Client postClient(@RequestBody ClientDto client) {
+        return clientService.createClient(client);
+    }
+
+    @PutMapping("client")
+    public Client putClient(@RequestBody ClientDto client) {
+        return clientService.modifyClient(client);
+    }
+
+    @DeleteMapping("client/{id}")
+    public boolean deleteClient(Long id) {
+        return clientService.deleteClient(id);
+    }
 }

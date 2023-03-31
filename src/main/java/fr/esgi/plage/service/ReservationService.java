@@ -11,9 +11,9 @@ public interface ReservationService {
 
 	List<Reservation> getAllReservations();
 
-	Reservation createReservation(Reservation reservation);
+	Reservation createReservation(ReservationDto reservation);
 
 	Reservation modifyReservation(ReservationDto reservationDto);
 
-	Reservation deleteReservation(Long id);
+	boolean deleteReservation(Long id);
 }

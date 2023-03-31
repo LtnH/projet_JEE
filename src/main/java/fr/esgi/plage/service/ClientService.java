@@ -7,7 +7,7 @@ import fr.esgi.plage.dto.ClientDto;
 
 public interface ClientService {
 	
-	Client createClient(Client client);
+	Client createClient(ClientDto client);
 
 	List<Client> getAllClients();
 
@@ -15,4 +15,5 @@ public interface ClientService {
 
 	Client modifyClient(ClientDto clientDto);
 
+	boolean deleteClient(Long id);
 }
