@@ -2,6 +2,8 @@ package fr.esgi.plage.controller;
 
 import fr.esgi.plage.business.Reservation;
 import fr.esgi.plage.dto.ReservationDto;
+import fr.esgi.plage.exception.ReservationExisteDejaException;
+import fr.esgi.plage.exception.ReservationInexistantException;
 import fr.esgi.plage.service.ReservationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -39,5 +41,17 @@ public class ReservationRestController {
     @DeleteMapping("reservations/{id}")
     public boolean deleteReservation(Long id) {
         return reservationService.deleteReservation(id);
+    }
+
+    @ExceptionHandler(ReservationExisteDejaException.class)
+    @ResponseStatus(code= HttpStatus.CONFLICT)
+    public String traiterReservationDejaPresent(Exception e) {
+        return e.getMessage();
+    }
+
+    @ExceptionHandler(ReservationInexistantException.class)
+    @ResponseStatus(code= HttpStatus.CONFLICT)
+    public String traiterReservationInexistant(Exception e) {
+        return e.getMessage();
     }
 }

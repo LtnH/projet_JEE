@@ -1,8 +1,9 @@
 package fr.esgi.plage.controller;
 
 import fr.esgi.plage.business.Client;
-import fr.esgi.plage.dao.ClientDao;
 import fr.esgi.plage.dto.ClientDto;
+import fr.esgi.plage.exception.ClientExisteDejaException;
+import fr.esgi.plage.exception.ClientInexistantException;
 import fr.esgi.plage.service.ClientService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -41,5 +42,17 @@ public class ClientRestController {
     @DeleteMapping("client/{id}")
     public boolean deleteClient(Long id) {
         return clientService.deleteClient(id);
+    }
+
+    @ExceptionHandler(ClientExisteDejaException.class)
+    @ResponseStatus(code= HttpStatus.CONFLICT)
+    public String traiterClientDejaPresent(Exception e) {
+        return e.getMessage();
+    }
+
+    @ExceptionHandler(ClientInexistantException.class)
+    @ResponseStatus(code= HttpStatus.CONFLICT)
+    public String traiterClientInexistant(Exception e) {
+        return e.getMessage();
     }
 }
