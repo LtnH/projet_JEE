@@ -1,12 +1,11 @@
 package fr.esgi.plage.business;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -22,5 +21,8 @@ public class Statut {
 	public Statut(String nom) {
 		this.nom = nom;
 	}
+
+	@OneToMany(mappedBy = "statut")
+	public List<Reservation> reservationList;
 
 }

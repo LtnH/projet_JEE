@@ -3,14 +3,10 @@ package fr.esgi.plage.business;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.Min;
 
+import lombok.AllArgsConstructor;
 import org.hibernate.validator.constraints.Range;
 
 import lombok.Data;
@@ -19,6 +15,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 public class Reservation {
 	
 	@Id
@@ -33,22 +30,28 @@ public class Reservation {
 	private String cryptogramme;
 	
 	@Range(min=1,max=12)
-	private byte moisExpiration;
+	private Byte moisExpiration;
 	
-	@Min(2023)
-	private byte anneeExpiration;
+	@Min(23)
+	private Byte anneeExpiration;
 	
 	@ManyToOne
+	@JoinColumn(name = "client")
 	private Client client;
 	
 	@ManyToOne
 	private Concessionnaire concessionnaire;
 	
-	@OneToMany
+	@ManyToMany
 	private List<Parasol> parasols;
 	
 	@ManyToOne
+	@JoinColumn(name = "statut")
 	private Statut statut;
-	
 
+	public void setMontantAReglerEnEuro(double montantAReglerEnEuro) {
+//		montantAReglerEnEuro = montantAReglerEnEuro * (1.0  - this.client.getLienDeParente().getCoefficient());
+
+		this.montantAReglerEnEuro = montantAReglerEnEuro;
+	}
 }

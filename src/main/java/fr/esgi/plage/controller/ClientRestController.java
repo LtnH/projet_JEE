@@ -24,7 +24,7 @@ public class ClientRestController {
     }
 
     @GetMapping("clients/{id}")
-    public Client getClient(Long id) {
+    public Client getClient(@PathVariable Long id) {
         return clientService.getClient(id);
     }
 
@@ -40,7 +40,7 @@ public class ClientRestController {
     }
 
     @DeleteMapping("client/{id}")
-    public boolean deleteClient(Long id) {
+    public boolean deleteClient(@PathVariable Long id) {
         return clientService.deleteClient(id);
     }
 
