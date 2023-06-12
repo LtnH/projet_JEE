@@ -2,6 +2,7 @@ package fr.esgi.plage.controller;
 
 import fr.esgi.plage.business.Reservation;
 import fr.esgi.plage.dto.ReservationDto;
+import fr.esgi.plage.exception.ReservationDateInvalideException;
 import fr.esgi.plage.exception.ReservationExisteDejaException;
 import fr.esgi.plage.exception.ReservationInexistantException;
 import fr.esgi.plage.service.ReservationService;
@@ -16,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ReservationRestController {
 
-    private final ReservationService reservationService;
+    private ReservationService reservationService;
 
     @GetMapping("reservations")
     public List<Reservation> getReservations() {
@@ -52,6 +53,12 @@ public class ReservationRestController {
     @ExceptionHandler(ReservationInexistantException.class)
     @ResponseStatus(code= HttpStatus.CONFLICT)
     public String traiterReservationInexistant(Exception e) {
+        return e.getMessage();
+    }
+
+    @ExceptionHandler(ReservationDateInvalideException.class)
+    @ResponseStatus(code= HttpStatus.CONFLICT)
+    public String traiterReservationDateInvalide(Exception e) {
         return e.getMessage();
     }
 }

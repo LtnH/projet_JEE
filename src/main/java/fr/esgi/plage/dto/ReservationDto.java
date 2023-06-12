@@ -1,9 +1,14 @@
 package fr.esgi.plage.dto;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import fr.esgi.plage.business.Client;
+import fr.esgi.plage.business.Concessionnaire;
+import fr.esgi.plage.business.Parasol;
+import fr.esgi.plage.business.Statut;
 import lombok.Data;
 
 @Data
@@ -31,9 +36,20 @@ public class ReservationDto {
 	private String cryptogramme;
 	
 	@JsonProperty("moisExpiration")
-	private byte moisExpiration;
+	private Byte moisExpiration;
 	
 	@JsonProperty("anneeExpiration")
-	private byte anneeExpiration;
+	private Byte anneeExpiration;
 
+	@JsonProperty("client")
+	private Client client;
+
+	@JsonProperty("parasol")
+	private List<Parasol> parasol;
+
+	@JsonProperty("concessionnaire")
+	private Concessionnaire concessionnaire;
+
+	@JsonProperty("statut")
+	private Statut statut;
 }
