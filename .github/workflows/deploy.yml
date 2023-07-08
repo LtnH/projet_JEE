@@ -1,6 +1,8 @@
-name: build
+name: deploy
 on:
-  - pull_request
+  push:
+    branches:
+      - main
 jobs:
   check-dockerfile:
     runs-on: ubuntu-18.04
@@ -9,11 +11,15 @@ jobs:
       - uses: hadolint/hadolint-action@v3.1.0
         with:
           dockerfile: Dockerfile
-  build_image:
+  deploy_image:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3 # Récupère le contenu du dépôt correspondant au commit du workflow en cours
       - name: "Build Image"
         run: docker image build --tag=project_jee:latest ./
       - name: "start image"
-        run: docker run project_jee:latest echo 'test'
+        run: docker run project_jee:latest bash "echo 'test'"
+      - name: "tag image"
+        run: docker tag project_jee:latest ltnh/git-ci:latest
+      - name: "push image"
+        run: docker push ltnh/git-ci:latest
