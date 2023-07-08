@@ -2,7 +2,7 @@ name: deploy
 on:
   push:
     branches:
-      - main
+      - master
 jobs:
   check-dockerfile:
     runs-on: ubuntu-18.04
