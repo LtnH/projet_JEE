@@ -19,7 +19,9 @@ jobs:
         run: docker image build --tag=project_jee:latest ./
       - name: "start image"
         run: docker run project_jee:latest echo 'test'
+      - name: "docker login"
+        run: docker login --user=${{ secrets.DOCKERHUB_LOGIN }} --password=${{ secrets.DOCKERHUB_PASSWORD }}
       - name: "tag image"
         run: docker tag project_jee:latest ltnh/git-ci:latest
       - name: "push image"
-        run: docker push ltnh/git-ci:latest
+        run: docker image push ltnh/git-ci:latest
