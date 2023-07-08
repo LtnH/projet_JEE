@@ -16,4 +16,4 @@ jobs:
       - name: "Build Image"
         run: docker image build --tag=project_jee:latest ./
       - name: "start image"
-        run: docker run project_jee:latest bash "echo 'test'"
+        run: docker run project_jee:latest echo 'test'
